@@ -8,23 +8,35 @@ using namespace std;
 
 int f_encode (char *file_name) {
  cout << "Function for encoding file" << endl; 
+ char temp_array[100];
+ int i = 0;
  
   FILE * file_object;
-     file_object = fopen (file_name, "r");
-      if (file_object != NULL) 
-	cout << "it`s success!!1111!!11azaza" << endl; 
-      
-      if (file_object == NULL) { 
-	cout << "what the shit?" << endl;
-	return 1;
+    file_object = fopen (file_name, "r");
+      if (file_object != NULL) {
+        while (! feof(file_object)) {
+          fgets (temp_array, 100, file_object);
+          cout << temp_array << endl;
+        }
       }
+      fclose (file_object);
       
-     fclose (file_object);
+    for (i = 0; i < 100; i++) {
+         temp_array[i] = temp_array[i] + 4;   
+        }
+        
+        cout << temp_array << endl; 
+
+    FILE * result_object;
+        result_object = fopen ("/home/jen/codding/Coder/result.txt", "a");
+            if (result_object != NULL) 
+            fputs (temp_array, result_object);
+            fclose (result_object);
+        return 0;
 }
 
 int f_decode (char *file_name) {
- cout << "Function for decoding file" << endl; 
- 
+ cout << "Function for decoding file" << endl;
  FILE * file_object;
      file_object = fopen (file_name, "r");
      
