@@ -8,31 +8,43 @@ using namespace std;
 
 int f_encode (char *file_for_encoding) {
  cout << "Function for encoding file" << endl; 
- char temp_array[100];     //лажа
+ char *temp_array = NULL;     
  int i = 0;
  
-  FILE * file_object;
-    file_object = fopen (file_for_encoding, "r");
-      if (file_object != NULL) {
-        while (! feof(file_object)) {
-          fgets (temp_array, 100, file_object);  //лажа
-          cout << temp_array << endl;
-        }
+  FILE * fdEncode;
+    fdEncode = fopen (file_for_encoding, "r");
+      if (fdEncode != NULL) {
+          
+          fseek (fdEncode, 0, SEEK_END);
+          int file_size = ftell(fdEncode);
+          fseek (fdEncode, 0, SEEK_SET);
+          
+          cout << file_size << endl;
+          
+          temp_array = malloc(file_size);
+          if (temp_array == NULL)
+            return 1;
+          
+                 
+          while (!feof(fdEncode)) {
+            fgets (temp_array, 512, fdEncode);
+            cout << temp_array << endl;
+          }
       }
-      fclose (file_object);
+      fclose (fdEncode);
       
     for (i = 0; i < 100; i++) {
-         temp_array[i] = temp_array[i] + 4;   // лажа
+         temp_array[i] = temp_array[i] + 4;   
         }
 
-    FILE * result_object;
-        result_object = fopen ("/home/jen/codding/Coder/result.txt", "a");
-            if (result_object != NULL) 
-            fputs (temp_array, result_object);
-            fclose (result_object);
+    FILE * fdResult;
+        fdResult = fopen ("/home/jen/codding/Coder/result.txt", "a");
+            if (fdResult != NULL) 
+            fputs (temp_array, fdResult);
+            fclose (fdResult);
         return 0;
         
-        //лажа
+        
 }
 
 int f_decode (char *file_for_decoding) {
@@ -40,25 +52,25 @@ int f_decode (char *file_for_decoding) {
  char temp_array[100];
  int i = 0;
  
-  FILE * file_object;
-    file_object = fopen (file_for_decoding, "r");
-      if (file_object != NULL) {
-        while (! feof(file_object)) {
-          fgets (temp_array, 100, file_object);
+  FILE * fdDecode;
+    fdDecode = fopen (file_for_decoding, "r");
+      if (fdDecode != NULL) {
+        while (! feof(fdDecode)) {
+          fgets (temp_array, 100, fdDecode);
           cout << temp_array << endl;
         }
       }
-      fclose (file_object);
+      fclose (fdDecode);
       
     for (i = 0; i < 100; i++) {
          temp_array[i] = temp_array[i] - 4;   
         }
 
-    FILE * result_object;
-        result_object = fopen ("/home/jen/codding/Coder/enc_result.txt", "a");
-            if (result_object != NULL) 
-            fputs (temp_array, result_object);
-            fclose (result_object);
+    FILE * fdResult;
+        fdResult = fopen ("/home/jen/codding/Coder/enc_result.txt", "a");
+            if (fdResult != NULL) 
+            fputs (temp_array, fdResult);
+            fclose (fdResult);
         return 0;
 }
 
