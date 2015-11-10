@@ -2,6 +2,7 @@
 #include <cstring>
 #include <cstdio>
 #include <stdio.h> 
+#include <stdlib.h>
  
 using namespace std;
 
@@ -10,6 +11,7 @@ int f_encode (char *file_for_encoding) {
  cout << "Function for encoding file" << endl; 
  char *temp_array = NULL;     
  int i = 0;
+ int offset = 0;
  
   FILE * fdEncode;
     fdEncode = fopen (file_for_encoding, "r");
@@ -21,15 +23,16 @@ int f_encode (char *file_for_encoding) {
           
           cout << file_size << endl;
           
-          temp_array = malloc(file_size);
+          temp_array = (char*) malloc(file_size);
           if (temp_array == NULL)
             return 1;
           
                  
           while (!feof(fdEncode)) {
-            fgets (temp_array, 512, fdEncode);
-            cout << temp_array << endl;
+                fgets (temp_array + offset, file_size, fdEncode);
+                offset = strlen (temp_array) + 1;
           }
+          cout << temp_array << endl;
       }
       fclose (fdEncode);
       
