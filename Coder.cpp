@@ -10,15 +10,17 @@ using namespace std;
 int f_encode (char *file_for_encoding) {
  cout << "Function for encoding file" << endl; 
  char *temp_array = NULL;     
+ char *fname_array = NULL; 
  int i = 0;
  int offset = 0;
+ int file_size = 0;
  
   FILE * fdEncode;
     fdEncode = fopen (file_for_encoding, "r");
       if (fdEncode != NULL) {
           
           fseek (fdEncode, 0, SEEK_END);
-          int file_size = ftell(fdEncode);
+          file_size = ftell(fdEncode);
           fseek (fdEncode, 0, SEEK_SET);
           
           // cout << file_size << endl;
@@ -36,16 +38,24 @@ int f_encode (char *file_for_encoding) {
       }
       fclose (fdEncode);
       
-    for (i = 0; i < file_size; i++) {
+    for (i = 0; i <= file_size; i++) {
          temp_array[i] = temp_array[i] + 4;   
         }
+    int fname_size = strlen (file_for_encoding) + 9;
+        
+    fname_array = (char*) malloc (fname_size);
+    if (fname_array == NULL)
+        return 1;
+    strcpy (fname_array, file_for_encoding);
+    strcat (fname_array, ".coded.txt");
 
     FILE * fdResult;
-        fdResult = fopen ("/home/jen/codding/Coder/result.txt", "a");
-            if (fdResult != NULL) 
-            fputs (temp_array, fdResult);
-            fclose (fdResult);
-            free (temp_array);
+        fdResult = fopen (fname_array, "a");
+            if (fdResult != NULL) {
+                fputs (temp_array, fdResult);
+                fclose (fdResult);
+            }
+        free (temp_array);
         return 0;
                 
 }
@@ -55,13 +65,14 @@ int f_decode (char *file_for_decoding) {
  cout << "Function for decoding file" << endl;
  char *temp_array = NULL;     
  int i = 0;
+ int file_size = 0;
  
   FILE * fdDecode;
     fdDecode = fopen (file_for_decoding, "r");
       if (fdDecode != NULL) {
           
           fseek (fdDecode, 0, SEEK_END);
-          int file_size = ftell(fdDecode);
+          file_size = ftell(fdDecode);
           fseek (fdDecode, 0, SEEK_SET);
           
           // cout << file_size << endl;
@@ -77,15 +88,16 @@ int f_decode (char *file_for_decoding) {
       }
       fclose (fdDecode);
       
-    for (i = 0; i < file_size; i++) {
+    for (i = 0; i <= file_size; i++) {
          temp_array[i] = temp_array[i] - 4;   
         }
 
     FILE * fdResult;
-        fdResult = fopen ("/home/jen/codding/Coder/enc_result.txt", "a");
-            if (fdResult != NULL) 
-            fputs (temp_array, fdResult);
-            fclose (fdResult);
+        fdResult = fopen ("/home/jen/codding/Coder/", "a");
+            if (fdResult != NULL) {
+                fputs (temp_array, fdResult);
+                fclose (fdResult);
+            }
     free (temp_array);
         return 0;
     
