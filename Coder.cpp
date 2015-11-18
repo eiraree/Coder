@@ -12,7 +12,7 @@ int f_encode (char *file_for_encoding) {
  char *temp_array = NULL;     
  char *fname_array = NULL; 
  int i = 0;
- int offset = 0;
+ // int offset = 0;
  int file_size = 0;
  
   FILE * fdEncode;
@@ -29,11 +29,12 @@ int f_encode (char *file_for_encoding) {
           if (temp_array == NULL)
             return 1;
           
+          fread (temp_array, 1, file_size, fdEncode);    
                  
-          while (!feof(fdEncode)) {
+        /*  while (!feof(fdEncode)) {
                 fgets (temp_array + offset, file_size, fdEncode);
-                offset = strlen (temp_array);
-          }
+                offset = strlen (temp_array); *
+          } */
           // cout << temp_array << endl;
       }
       fclose (fdEncode);
@@ -41,7 +42,7 @@ int f_encode (char *file_for_encoding) {
     for (i = 0; i <= file_size; i++) {
          temp_array[i] = temp_array[i] + 4;   
         }
-    int fname_size = strlen (file_for_encoding) + 9;
+    int fname_size = strlen (file_for_encoding) + strlen(".coded.txt");
         
     fname_array = (char*) malloc (fname_size);
     if (fname_array == NULL)
@@ -50,9 +51,9 @@ int f_encode (char *file_for_encoding) {
     strcat (fname_array, ".coded.txt");
 
     FILE * fdResult;
-        fdResult = fopen (fname_array, "a");
+        fdResult = fopen (fname_array, "w");
             if (fdResult != NULL) {
-                fputs (temp_array, fdResult);
+                fwrite (temp_array, 1, file_size, fdResult);
                 fclose (fdResult);
             }
         free (temp_array);
@@ -81,10 +82,11 @@ int f_decode (char *file_for_decoding) {
           if (temp_array == NULL)
             return 1;
           
+          fread (temp_array, 1, file_size, fdDecode);   
                  
-          while (!feof(fdDecode)) {
+         /* while (!feof(fdDecode)) {
                 fgets (temp_array, file_size, fdDecode);
-          }
+          } */
       }
       fclose (fdDecode);
       
@@ -93,9 +95,9 @@ int f_decode (char *file_for_decoding) {
         }
 
     FILE * fdResult;
-        fdResult = fopen ("/home/jen/codding/Coder/", "a");
+        fdResult = fopen ("/home/jen/codding/Coder/decoded.txt", "w");
             if (fdResult != NULL) {
-                fputs (temp_array, fdResult);
+                fwrite (temp_array, 1, file_size, fdResult);
                 fclose (fdResult);
             }
     free (temp_array);
