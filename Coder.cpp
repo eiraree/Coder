@@ -7,7 +7,7 @@
 using namespace std;
 
 
-int f_encode (char *file_for_encoding) {
+int f_encode (char *file_for_encoding, char *coded_file) {
  cout << "Function for encoding file" << endl; 
  char *temp_array = NULL;     
  char *fname_array = NULL; 
@@ -42,16 +42,17 @@ int f_encode (char *file_for_encoding) {
     for (i = 0; i <= file_size; i++) {
          temp_array[i] = temp_array[i] + 4;   
         }
-    int fname_size = strlen (file_for_encoding) + strlen(".coded.txt");
+    
+    /* int fname_size = strlen (file_for_encoding) + strlen(".coded.txt");
         
     fname_array = (char*) malloc (fname_size);
     if (fname_array == NULL)
         return 1;
     strcpy (fname_array, file_for_encoding);
-    strcat (fname_array, ".coded.txt");
+    strcat (fname_array, ".coded.txt"); */
 
     FILE * fdResult;
-        fdResult = fopen (fname_array, "w");
+        fdResult = fopen (coded_file, "w");
             if (fdResult != NULL) {
                 fwrite (temp_array, 1, file_size, fdResult);
                 fclose (fdResult);
@@ -62,7 +63,7 @@ int f_encode (char *file_for_encoding) {
 }
 
 
-int f_decode (char *file_for_decoding) {
+int f_decode (char *file_for_decoding, char *decoded_file) {
  cout << "Function for decoding file" << endl;
  char *temp_array = NULL;     
  int i = 0;
@@ -95,7 +96,7 @@ int f_decode (char *file_for_decoding) {
         }
 
     FILE * fdResult;
-        fdResult = fopen ("/home/jen/codding/Coder/decoded.txt", "w");
+        fdResult = fopen (decoded_file, "w");
             if (fdResult != NULL) {
                 fwrite (temp_array, 1, file_size, fdResult);
                 fclose (fdResult);
@@ -108,12 +109,12 @@ int f_decode (char *file_for_decoding) {
  
 int main (int argc, char **argv) {
  
-  if ((argv[1] != NULL) && (argv[2] != NULL)) {
+  if ((argv[1] != NULL) && (argv[2] != NULL) && (argv[3]) != NULL) {
     if (strcmp(argv[1], "encode") == 0) {
-	f_encode(argv[2]);
+	f_encode(argv[2], argv[3]);
     } else {
 	if (strcmp(argv[1], "decode") == 0) {
-	    f_decode(argv[2]);
+	    f_decode(argv[2], argv[3]);
 	} else {
 	cout << "You shall not pass! What the " << argv[1] << "????" << endl;
 	return 1; 
