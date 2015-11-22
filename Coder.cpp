@@ -6,12 +6,14 @@
  
 using namespace std;
 
-void f_usage () {
+int f_usage (char* program_name) {
     printf ("Usage: \n");
-    printf ("   program_name [mode] [file1] [file2] \n");
-    printf ("   mode - 'encode' or 'decode' \n");
-    printf ("   file1 - file name we want to operate \n");
-    printf ("   file2 - file name we will store the result to \n"); 
+    printf ("   %s", program_name); 
+    printf (" [mode] [file1] [file2] \n"
+        "   mode - 'encode' or 'decode' \n"
+        "   file1 - file name we want to operate \n"
+        "   file2 - file name we will store the result to \n");
+    return 0;
 }
 
 
@@ -125,12 +127,12 @@ int main (int argc, char **argv) {
 	if (strcmp(argv[1], "decode") == 0) {
 	    f_decode(argv[2], argv[3]);
 	} else {
-	f_usage();
+	f_usage(argv[0]);
 	return 1; 
 	}
     }
   } else {
-    f_usage();
+    f_usage(argv[0]);
   } 
  
   return 0;
