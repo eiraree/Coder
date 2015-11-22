@@ -7,12 +7,11 @@
 using namespace std;
 
 int f_usage (char* program_name) {
-    printf ("Usage: \n");
-    printf ("   %s", program_name); 
-    printf (" [mode] [file1] [file2] \n"
+    printf ("Usage: \n"
+        "   %s [mode] [file1] [file2] \n"
         "   mode - 'encode' or 'decode' \n"
         "   file1 - file name we want to operate \n"
-        "   file2 - file name we will store the result to \n");
+        "   file2 - file name we will store the result to \n", program_name);
     return 0;
 }
 
