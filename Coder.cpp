@@ -6,6 +6,14 @@
  
 using namespace std;
 
+void f_usage () {
+    printf ("Usage: \n");
+    printf ("   program_name [mode] [file1] [file2] \n");
+    printf ("   mode - 'encode' or 'decode' \n");
+    printf ("   file1 - file name we want to operate \n");
+    printf ("   file2 - file name we will store the result to \n"); 
+}
+
 
 int f_encode (char *file_for_encoding, char *coded_file) {
  cout << "Function for encoding file" << endl; 
@@ -49,7 +57,8 @@ int f_encode (char *file_for_encoding, char *coded_file) {
     if (fname_array == NULL)
         return 1;
     strcpy (fname_array, file_for_encoding);
-    strcat (fname_array, ".coded.txt"); */
+    strcat (fname_array, ".coded.txt");
+    free (fname_array); */
 
     FILE * fdResult;
         fdResult = fopen (coded_file, "w");
@@ -116,12 +125,12 @@ int main (int argc, char **argv) {
 	if (strcmp(argv[1], "decode") == 0) {
 	    f_decode(argv[2], argv[3]);
 	} else {
-	cout << "You shall not pass! What the " << argv[1] << "????" << endl;
+	f_usage();
 	return 1; 
 	}
     }
   } else {
-    cout << "What do you mean by saying it..?" << endl;
+    f_usage();
   } 
  
   return 0;
