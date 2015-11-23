@@ -1,4 +1,5 @@
 #include <stdio.h> 
+#include <string.h>
 #include <stdlib.h>
 
 
@@ -15,7 +16,6 @@ int f_usage (char* program_name) {
 int f_encode (char *file_for_encoding, char *coded_file) {
  printf ("Function for encoding file \n"); 
  char *temp_array = NULL;     
- char *fname_array = NULL; 
  int i = 0;
  // int offset = 0;
  int file_size = 0;
