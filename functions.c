@@ -20,6 +20,12 @@ int f_encode (char *file_for_encoding, char *coded_file) {
  
   FILE * fdEncode;
     fdEncode = fopen (file_for_encoding, "r");
+    
+    if (fdEncode == NULL) {
+            printf ("[Error]: File not found! \n");
+            return 1;
+      }
+    
       if (fdEncode != NULL) {
           
           fseek (fdEncode, 0, SEEK_END);
@@ -32,11 +38,6 @@ int f_encode (char *file_for_encoding, char *coded_file) {
             return 1;
           
           fread (temp_array, 1, file_size, fdEncode);    
-      }
-      
-      if (fdEncode == NULL) {
-            printf ("[Error]: File not found! \n");
-            return 1;
       }
       
       
@@ -70,6 +71,12 @@ int f_decode (char *file_for_decoding, char *decoded_file) {
  
   FILE * fdDecode;
     fdDecode = fopen (file_for_decoding, "r");
+    
+    if (fdDecode == NULL) {
+            printf ("[Error]: File not found! \n");
+            return 1;
+      }
+      
       if (fdDecode != NULL) {
           
           fseek (fdDecode, 0, SEEK_END);
@@ -83,9 +90,6 @@ int f_decode (char *file_for_decoding, char *decoded_file) {
           fread (temp_array, 1, file_size, fdDecode);   
       }
       fclose (fdDecode);
-      
-      if (fdDecode == NULL) 
-                return 1;
       
     for (i = 0; i <= file_size; i++) {
          temp_array[i] = temp_array[i] - 4;   
