@@ -17,6 +17,7 @@ int f_encode (char *file_for_encoding, char *coded_file) {
  char *temp_array = NULL;     
  int i = 0;
  int file_size = 0;
+ int number;
  
   FILE * fdEncode;
     fdEncode = fopen (file_for_encoding, "r");
@@ -42,9 +43,12 @@ int f_encode (char *file_for_encoding, char *coded_file) {
       
       
     fclose (fdEncode);
+    
+    printf ("Enter value, please: \n");
+    scanf ("%i", &number);
       
     for (i = 0; i <= file_size; i++) {
-         temp_array[i] = temp_array[i] + 4;   
+         temp_array[i] = temp_array[i] + number;   
         }
 
     FILE * fdResult;
@@ -68,6 +72,7 @@ int f_decode (char *file_for_decoding, char *decoded_file) {
  char *temp_array = NULL;     
  int i = 0;
  int file_size = 0;
+ int number;
  
   FILE * fdDecode;
     fdDecode = fopen (file_for_decoding, "r");
@@ -91,8 +96,11 @@ int f_decode (char *file_for_decoding, char *decoded_file) {
       }
       fclose (fdDecode);
       
+      printf ("Enter value, please: \n");
+      scanf ("%i", &number);
+      
     for (i = 0; i <= file_size; i++) {
-         temp_array[i] = temp_array[i] - 4;   
+         temp_array[i] = temp_array[i] - number;   
         }
 
     FILE * fdResult;
